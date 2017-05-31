@@ -17,6 +17,7 @@ class Pizza extends Migration
             $table->increments('id');
             $table->string('nome', 50);
             $table->double('preco');
+            $table->boolean('disponivel');
             $table->timestamps();
         });
     }
