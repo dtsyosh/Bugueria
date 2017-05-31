@@ -30,7 +30,8 @@ class CriarLinkIngredPizza extends Migration
      */
     public function down() {
         Schema::table('ingredientes_pizza', function (Blueprint $table) {
-            $table->dropForeign('');
+            $table->dropForeign('ingredientes_pizza_pizza_id_foreign');
+            $table->dropForeign('ingredientes_pizza_ingredientes_id_foreign');
         });
         Schema::dropIfExists('ingredientes_pizza');
     }
