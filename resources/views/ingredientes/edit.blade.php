@@ -23,6 +23,7 @@
 
             <div class="form-group">
                 {!! Form::submit('Atualizar', ['class' => 'btn btn-primary']) !!}
+                <a href="{{ route('ingredientes.index') }}" class="btn btn-default">Voltar</a>
             </div>
         </div>
     </div>

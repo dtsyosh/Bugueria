@@ -37,9 +37,13 @@ class IngredientesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'nome' => 'required',
-            'preco' => 'required'
+        $this -> validate($request, [
+            'nome' => 'required|min:3',
+            'preco' => 'required',
+        ], [
+            'nome.required' => 'Este campo é obrigatório.',
+            'nome.min' => 'Quantidade mínima de caracteres = 3.',
+            'preco.required' => 'Este campo é obrigatório.'
         ]);
 
         $ingrediente = new Ingredientes;
@@ -95,8 +99,12 @@ class IngredientesController extends Controller
     public function update(Request $request, $id)
     {
         $this -> validate($request, [
-            'nome' => 'required',
+            'nome' => 'required|min:3',
             'preco' => 'required',
+        ], [
+            'nome.required' => 'Este campo é obrigatório.',
+            'nome.min' => 'Quantidade mínima de caracteres = 3.',
+            'preco.required' => 'Este campo é obrigatório.'
         ]);
 
         $ingrediente = Ingredientes::find($id);
