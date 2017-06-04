@@ -16,7 +16,7 @@ class IngredientesController extends Controller
     {
         $ingredientes = Ingredientes::all();
 
-        return view('ingredientes.index')->with('ingredientes', $ingredientes);
+        return view('ingredientes.index', compact('ingredientes'));
     }
 
     /**
@@ -66,7 +66,7 @@ class IngredientesController extends Controller
         if(! $ingredientes) {
             abort(404);
         }
-        return view('ingredientes.show', compact($ingredientes));
+        return view('ingredientes.show', compact('ingredientes'));
     }
 
     /**
@@ -77,12 +77,12 @@ class IngredientesController extends Controller
      */
     public function edit($id)
     {
-        $ingredientes = Ingredientes::find($id);
+        $ingrediente = Ingredientes::find($id);
 
-        if(! $ingredientes) {
+        if(! $ingrediente) {
             abort(404);
         }
-        return view('ingredientes.edit', compact($ingredientes));
+        return view('ingredientes.edit', compact('ingrediente'));
     }
 
     /**
@@ -97,16 +97,16 @@ class IngredientesController extends Controller
         $this -> validate($request, [
             'nome' => 'required',
             'preco' => 'required',
-            'disponivel' => 'required'
         ]);
 
-        $ingredientes = Ingredientes::find($id);
+        $ingrediente = Ingredientes::find($id);
 
-        $ingredientes -> nome = $request -> nome;
-        $ingredientes -> preco = $request -> preco;
-        $ingredientes -> disponivel = $request -> disponivel;
+        $ingrediente -> nome = $request -> nome;
+        $ingrediente -> preco = $request -> preco;
 
-        $ingredientes -> save();
+        $ingrediente -> disponivel = $request -> has('disponivel');
+
+        $ingrediente -> save();
 
         return redirect('ingredientes') -> with('message', 'Ingrediente atualizado com sucesso!');
     }
