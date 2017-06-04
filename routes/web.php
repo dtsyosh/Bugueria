@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('ingredientes/create', 'IngredientesController@create');
+Route::group(['middleware' => ['web']], function () {
+    Route::resource('ingredientes', 'IngredientesController');
+});

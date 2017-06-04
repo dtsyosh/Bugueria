@@ -16,7 +16,7 @@ class IngredientesController extends Controller
     {
         $ingredientes = Ingredientes::all();
 
-        return view('ingredientes', compact($ingredientes));
+        return view('ingredientes.index')->with('ingredientes', $ingredientes);
     }
 
     /**
@@ -39,8 +39,7 @@ class IngredientesController extends Controller
     {
         $this->validate($request, [
             'nome' => 'required',
-            'preco' => 'required',
-
+            'preco' => 'required'
         ]);
 
         $ingrediente = new Ingredientes;
