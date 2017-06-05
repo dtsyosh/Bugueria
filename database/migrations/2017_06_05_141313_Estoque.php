@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Ingredientes extends Migration
+class Estoque extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class Ingredientes extends Migration
      */
     public function up()
     {
-        Schema::create('ingredientes', function (Blueprint $table) {
-
+        Schema::create('estoque', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nome',50);
-            $table->double('preco_porcao');
             $table->string('unidade');
-            $table->integer('qtde_porcao');
-            $table->integer('qtde_total');
-            $table->boolean('disponivel');
+            $table->integer('ingredientes_id')->unsigned();
+            $table->integer('quantidade');
+
+            $table->foreign('ingredientes_id')->references('id')->on('ingredientes');
             $table->timestamps();
         });
     }
@@ -33,6 +31,9 @@ class Ingredientes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ingredientes');
+        Schema::create('estoque', function (Blueprint $table) {
+           $table->dropForeign('estoque_ingredientes_id_foreign');
+        });
+        Schema::dropIfExists('estoque');
     }
 }

@@ -39,17 +39,24 @@ class IngredientesController extends Controller
     {
         $this -> validate($request, [
             'nome' => 'required|min:3',
-            'preco' => 'required',
+            'preco_porcao' => 'required',
+            'unidade' => 'required',
+            'qtde_porcao' => 'required',
         ], [
             'nome.required' => "O campo 'nome' é obrigatório.",
             'nome.min' => 'Nome muito pequeno',
-            'preco.required' => "O campo 'preço' é obrigatório."
+            'preco.required' => "O campo 'preço' é obrigatório.",
+            'unidade.required' => "O campo 'unidade' é obrigatório.",
+            'qtde_porcao.required' => "O campo 'quandidade de 1 porção' é obrigatório."
         ]);
 
         $ingrediente = new Ingredientes;
 
         $ingrediente -> nome = $request -> nome;
-        $ingrediente -> preco = $request -> preco;
+        $ingrediente -> preco_porcao = $request -> preco_porcao;
+        $ingrediente -> unidade = $request -> unidade;
+        $ingrediente -> qtde_porcao = $request -> qtde_porcao;
+        $ingrediente -> qtde_total = $request -> qtde_total;
         $ingrediente -> disponivel = true;
 
         $ingrediente -> save();
