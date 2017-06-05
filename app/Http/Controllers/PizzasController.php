@@ -14,7 +14,7 @@ class PizzasController extends Controller
     public function index()
     {
         $pizzas = Pizzas::all();
-        
+
         return view('pizzas.index', compact('pizzas'));
     }
 
@@ -25,7 +25,7 @@ class PizzasController extends Controller
      */
     public function create()
     {
-        //
+        return view('pizzas.create');
     }
 
     /**
@@ -36,7 +36,10 @@ class PizzasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nome' => 'required',
+            'preco' => 'required',
+        ]);
     }
 
     /**

@@ -41,9 +41,9 @@ class IngredientesController extends Controller
             'nome' => 'required|min:3',
             'preco' => 'required',
         ], [
-            'nome.required' => 'Este campo é obrigatório.',
-            'nome.min' => 'Quantidade mínima de caracteres = 3.',
-            'preco.required' => 'Este campo é obrigatório.'
+            'nome.required' => "O campo 'nome' é obrigatório.",
+            'nome.min' => 'Nome muito pequeno',
+            'preco.required' => "O campo 'preço' é obrigatório."
         ]);
 
         $ingrediente = new Ingredientes;

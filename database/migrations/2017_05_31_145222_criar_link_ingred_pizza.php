@@ -16,6 +16,7 @@ class CriarLinkIngredPizza extends Migration
         Schema::create('ingredientes_pizza', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->integer('porcoes');
             $table->integer('ingredientes_id')->unsigned();
             $table->integer('pizza_id')->unsigned();
 

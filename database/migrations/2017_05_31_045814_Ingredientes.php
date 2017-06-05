@@ -17,7 +17,9 @@ class Ingredientes extends Migration
 
             $table->increments('id');
             $table->string('nome',50);
-            $table->double('preco');
+            $table->double('preco_porcao');
+            $table->string('unidade');
+            $table->integer('medida_porcao');
             $table->boolean('disponivel');
             $table->timestamps();
         });

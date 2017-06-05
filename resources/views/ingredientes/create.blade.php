@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('title', 'Criar novo produto')
 
@@ -9,6 +9,7 @@
             <div class="text-center">
                 <h1>Criar novo produto</h1>
             </div>
+
             {!! Form::open(['route' => 'ingredientes.store']) !!}
 
             <div class="form-group">
@@ -22,6 +23,9 @@
             <div class="form-group">
                 {!! Form::submit('Cadastrar', ['class' => 'btn btn-primary']) !!}
             </div>
+
+            {{--Mensagens de erro--}}
+            @include('layouts/errors')
         </div>
     </div>
     {!! Form::close() !!}
