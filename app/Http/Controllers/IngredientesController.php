@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Ingredientes;
+use App\Ingrediente;
+use App\Estoque;
 use Illuminate\Http\Request;
 
 class IngredientesController extends Controller
@@ -14,7 +15,7 @@ class IngredientesController extends Controller
      */
     public function index()
     {
-        $ingredientes = Ingredientes::all();
+        $ingredientes = Ingrediente::all();
 
         return view('ingredientes.index', compact('ingredientes'));
     }
@@ -42,26 +43,24 @@ class IngredientesController extends Controller
             'preco_porcao' => 'required',
             'unidade' => 'required',
             'qtde_porcao' => 'required',
-        ], [
-            'nome.required' => "O campo 'nome' é obrigatório.",
-            'nome.min' => 'Nome muito pequeno',
-            'preco.required' => "O campo 'preço' é obrigatório.",
-            'unidade.required' => "O campo 'unidade' é obrigatório.",
-            'qtde_porcao.required' => "O campo 'quandidade de 1 porção' é obrigatório."
         ]);
 
-        $ingrediente = new Ingredientes;
+        $ingrediente = new Ingrediente;
 
         $ingrediente -> nome = $request -> nome;
         $ingrediente -> preco_porcao = $request -> preco_porcao;
         $ingrediente -> unidade = $request -> unidade;
         $ingrediente -> qtde_porcao = $request -> qtde_porcao;
-        $ingrediente -> qtde_total = $request -> qtde_total;
-        $ingrediente -> disponivel = true;
 
         $ingrediente -> save();
 
-        return redirect('ingredientes') -> with('message', 'Ingredientes salvo com sucesso!');
+        $estoque = new Estoque;
+        $estoque->unidade = $ingrediente->unidade;
+        $estoque->quantidade = 0;
+        $estoque->ingredientes_id = $ingrediente->id;
+        $estoque->save();
+
+        return redirect('ingredientes') -> with('message', 'Ingrediente salvo com sucesso!');
     }
 
     /**
@@ -72,7 +71,7 @@ class IngredientesController extends Controller
      */
     public function show($id)
     {
-        $ingredientes = Ingredientes::find($id);
+        $ingredientes = Ingrediente::find($id);
 
         if(! $ingredientes) {
             abort(404);
@@ -88,7 +87,7 @@ class IngredientesController extends Controller
      */
     public function edit($id)
     {
-        $ingrediente = Ingredientes::find($id);
+        $ingrediente = Ingrediente::find($id);
 
         if(! $ingrediente) {
             abort(404);
@@ -107,19 +106,18 @@ class IngredientesController extends Controller
     {
         $this -> validate($request, [
             'nome' => 'required|min:3',
-            'preco' => 'required',
+            'preco_porcao' => 'required',
         ], [
             'nome.required' => 'Este campo é obrigatório.',
             'nome.min' => 'Quantidade mínima de caracteres = 3.',
-            'preco.required' => 'Este campo é obrigatório.'
+            'preco_porcao.required' => 'Este campo é obrigatório.'
         ]);
 
-        $ingrediente = Ingredientes::find($id);
+        $ingrediente = Ingrediente::find($id);
 
         $ingrediente -> nome = $request -> nome;
         $ingrediente -> preco = $request -> preco;
 
-        $ingrediente -> disponivel = $request -> has('disponivel');
 
         $ingrediente -> save();
 
@@ -134,8 +132,9 @@ class IngredientesController extends Controller
      */
     public function destroy($id)
     {
-        $ingrediente = Ingredientes::find($id);
+        $ingrediente = Ingrediente::find($id);
 
+        $ingrediente->estoque()->delete();
         $ingrediente -> delete();
 
         return redirect('ingredientes') -> with('message', 'Ingrediente apagado com sucesso!');

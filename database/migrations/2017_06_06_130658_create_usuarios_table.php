@@ -20,7 +20,7 @@ class CreateUsuariosTable extends Migration
             $table->string('celular');
             $table->integer('endereco_id')->unsigned();
 
-            $table->foreign('endereco_id')->references('id')->on('endereco');
+            $table->foreign('endereco_id')->references('id')->on('enderecos');
             $table->timestamps();
         });
     }
@@ -33,7 +33,7 @@ class CreateUsuariosTable extends Migration
     public function down()
     {
         Schema::table('usuarios', function (Blueprint $table) {
-           $table->dropForeign('usuarios_enderecos_id_foreign');
+           $table->dropForeign('usuarios_endereco_id_foreign');
         });
         Schema::dropIfExists('usuarios');
     }
