@@ -21,7 +21,6 @@ class Ingredientes extends Migration
             $table->string('unidade');
             $table->integer('qtde_porcao');
             $table->integer('qtde_total');
-            $table->boolean('disponivel');
             $table->timestamps();
         });
     }

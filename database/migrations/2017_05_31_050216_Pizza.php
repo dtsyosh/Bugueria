@@ -16,8 +16,8 @@ class Pizza extends Migration
         Schema::create('pizza', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome', 50);
-            $table->double('preco');
-            $table->boolean('disponivel');
+            $table->decimal('preco', 5, 2);
+            $table->boolean('cardapio');
             $table->timestamps();
         });
     }
