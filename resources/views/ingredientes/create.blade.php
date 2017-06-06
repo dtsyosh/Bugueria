@@ -23,6 +23,10 @@
         {!! Form::select('unidade', ['ml' => 'ml', 'mg' => 'mg', 'class' => 'form-inline']) !!}
     </div>
 
+    <div class="form-group">
+        {!! Form::label('Quantidade total:') !!}
+        {!! Form::text('qtde_total', null, ['class' => 'form-control']) !!}
+    </div>
     {!! Form::submit('Cadastrar', ['class' => 'btn btn-primary']) !!}
 
     </div>

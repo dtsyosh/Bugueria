@@ -43,6 +43,7 @@ class IngredientesController extends Controller
             'preco_porcao' => 'required',
             'unidade' => 'required',
             'qtde_porcao' => 'required',
+            'qtde_total' => 'required'
         ]);
 
         $ingrediente = new Ingrediente;
@@ -51,14 +52,8 @@ class IngredientesController extends Controller
         $ingrediente -> preco_porcao = $request -> preco_porcao;
         $ingrediente -> unidade = $request -> unidade;
         $ingrediente -> qtde_porcao = $request -> qtde_porcao;
-
+        $ingrediente -> qtde_total = $request -> qtde_total;
         $ingrediente -> save();
-
-        $estoque = new Estoque;
-        $estoque->unidade = $ingrediente->unidade;
-        $estoque->quantidade = 0;
-        $estoque->ingredientes_id = $ingrediente->id;
-        $estoque->save();
 
         return redirect('ingredientes') -> with('message', 'Ingrediente salvo com sucesso!');
     }
@@ -134,7 +129,6 @@ class IngredientesController extends Controller
     {
         $ingrediente = Ingrediente::find($id);
 
-        $ingrediente->estoque()->delete();
         $ingrediente -> delete();
 
         return redirect('ingredientes') -> with('message', 'Ingrediente apagado com sucesso!');
