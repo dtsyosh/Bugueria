@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Ingrediente;
-use App\Estoque;
 use Illuminate\Http\Request;
 
 class IngredientesController extends Controller
