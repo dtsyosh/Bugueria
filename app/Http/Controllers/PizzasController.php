@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Ingrediente;
+use App\Pizza;
 use Illuminate\Http\Request;
 
 class PizzasController extends Controller
@@ -38,8 +40,16 @@ class PizzasController extends Controller
     {
         $this->validate($request, [
             'nome' => 'required',
-            'preco' => 'required',
+            'preco' => 'required'
         ]);
+        $pizza = new Pizza;
+
+        $pizza -> cardapio = $request -> has('cardapio');
+        $pizza -> nome = $request -> nome;
+        $pizza -> preco = $request -> preco;
+
+        $pizza -> save();
+        return redirect('homepage');
     }
 
     /**
@@ -50,7 +60,12 @@ class PizzasController extends Controller
      */
     public function show($id)
     {
-        //
+        $pizza = Pizza::find($id);
+
+        if (! $pizza)
+            abort(404);
+
+        return view('pizza.detailpage', compact('pizza'));
     }
 
     /**
@@ -61,7 +76,12 @@ class PizzasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pizza = Pizza::find($id);
+
+        if (! $pizza)
+            abort(404);
+
+        return view('pizza.edit', compact('pizza'));
     }
 
     /**

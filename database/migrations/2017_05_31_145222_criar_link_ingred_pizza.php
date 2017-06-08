@@ -13,7 +13,7 @@ class CriarLinkIngredPizza extends Migration
      */
     public function up()
     {
-        Schema::create('ingredientes_pizza', function (Blueprint $table) {
+        Schema::create('ingrediente_pizza', function (Blueprint $table) {
             $table->integer('id');
             $table->integer('qtde_porcoes');
             $table->integer('ingredientes_id')->unsigned();
@@ -35,11 +35,11 @@ class CriarLinkIngredPizza extends Migration
      * @return void
      */
     public function down() {
-        Schema::table('ingredientes_pizza', function (Blueprint $table) {
-            $table->dropForeign('ingredientes_pizza_pizza_id_foreign');
-            $table->dropForeign('ingredientes_pizza_ingredientes_id_foreign');
+        Schema::table('ingrediente_pizza', function (Blueprint $table) {
+            $table->dropForeign('ingrediente_pizza_pizza_id_foreign');
+            $table->dropForeign('ingrediente_pizza_ingredientes_id_foreign');
         });
 
-        Schema::dropIfExists('ingredientes_pizza');
+        Schema::dropIfExists('ingrediente_pizza');
     }
 }
