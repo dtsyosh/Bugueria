@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ingrediente extends Model
 {
-    public function estoque()
+    public function pizzas()
     {
-        return $this->belongsTo(Estoque::class);
+        $this->belongsToMany(Pizza::class)
+            ->withPivot('qtde_porcoes')
+            ->withTimestamps();
     }
 }

@@ -8,6 +8,8 @@ class Pizza extends Model
 {
     public function ingredientes()
     {
-        return $this->belongsToMany(Ingrediente::class);
+        return $this->belongsToMany(Ingrediente::class)
+            ->withPivot('qtde_porcoes')
+            ->withTimestamps();
     }
 }

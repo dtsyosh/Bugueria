@@ -13,7 +13,7 @@ class Pizza extends Migration
      */
     public function up()
     {
-        Schema::create('pizza', function (Blueprint $table) {
+        Schema::create('pizzas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome', 50);
             $table->decimal('preco', 5, 2);
@@ -29,6 +29,6 @@ class Pizza extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pizza');
+        Schema::dropIfExists('pizzas');
     }
 }
