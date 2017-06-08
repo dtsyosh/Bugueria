@@ -49,6 +49,7 @@ class PizzasController extends Controller
         $pizza -> preco = $request -> preco;
 
         $pizza -> save();
+
         return redirect('homepage');
     }
 
@@ -104,6 +105,11 @@ class PizzasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pizza = Pizza::find($id);
+
+        $pizza -> ingredientes() -> detach();
+        $pizza -> delete();
+
+        return redirect('pizza.index') -> with('message', 'Pizza excluída com sucesso!');
     }
 }

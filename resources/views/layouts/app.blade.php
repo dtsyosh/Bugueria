@@ -1,13 +1,30 @@
 <html>
+<style>
+    body {
+        padding-top: 65px;
+    }
+</style>
+
 <head>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <title>@yield('title')</title>
 </head>
+
 <body>
-    <div class="container">
-        @yield('content')
+@include('layouts.navbar')
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>
+            </h1>
+        </div>
     </div>
+</div>
+<div class="container">
+    @yield('content')
+</div>
 </body>
 </html>
