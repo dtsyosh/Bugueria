@@ -71,7 +71,7 @@ class IngredientesController extends Controller
         if(! $ingredientes) {
             abort(404);
         }
-        return view('ingredientes.show', compact('ingredientes'));
+        return view('ingredientes.detailpage', compact('ingredientes'));
     }
 
     /**
