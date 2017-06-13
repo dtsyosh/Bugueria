@@ -65,12 +65,12 @@ class IngredientesController extends Controller
      */
     public function show($id)
     {
-        $ingredientes = Ingrediente::find($id);
+        $ingrediente = Ingrediente::find($id);
 
-        if(! $ingredientes) {
+        if(! $ingrediente) {
             abort(404);
         }
-        return view('ingredientes.detailpage', compact('ingredientes'));
+        return view('ingredientes.show', compact('ingrediente'));
     }
 
     /**
