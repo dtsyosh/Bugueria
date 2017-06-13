@@ -11,10 +11,16 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('home');
 });
 
 Route::group(['middleware' => ['web']], function () {
     Route::resource('ingredientes', 'IngredientesController');
+});
+
+Route::group(['middleware' => ['web']], function () {
+    Route::resource('pizzas', 'PizzasController');
 });
