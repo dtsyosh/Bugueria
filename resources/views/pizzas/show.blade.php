@@ -9,7 +9,7 @@
             <ul>
                 @foreach($pizza->ingredientes()->get() as $ingrediente)
                     <li>
-                        {{ $ingrediente -> nome }}
+                        <a href="/ingredientes/{{$ingrediente -> id}}">{{ $ingrediente -> nome }}</a>
                     </li>
                 @endforeach
             </ul>
