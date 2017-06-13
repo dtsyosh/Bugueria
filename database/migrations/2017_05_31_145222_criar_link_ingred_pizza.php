@@ -14,12 +14,11 @@ class CriarLinkIngredPizza extends Migration
     public function up()
     {
         Schema::create('ingrediente_pizza', function (Blueprint $table) {
-            $table->integer('id');
+            $table->increments('id');
             $table->integer('qtde_porcoes');
             $table->integer('ingrediente_id')->unsigned();
             $table->integer('pizza_id')->unsigned();
 
-            $table->primary(['id', 'pizza_id']);
 
             $table->foreign('ingrediente_id')->references('id')->on('ingredientes');
             $table->foreign('pizza_id')->references('id')->on('pizzas');
