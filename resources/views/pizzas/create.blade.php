@@ -14,7 +14,7 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('ingrediente', 'ingredientes') !!}
+        {!! Form::label('ingrediente', 'Ingredientes:') !!}
         <div class="row">
             <div class="col-md-4">
                 @foreach($ingredientes as $ingrediente)

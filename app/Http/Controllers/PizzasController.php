@@ -61,7 +61,7 @@ class PizzasController extends Controller
 
 
 
-        return redirect('/');
+        return redirect('pizza.index');
     }
 
     /**
@@ -126,6 +126,6 @@ class PizzasController extends Controller
         $pizza -> ingredientes() -> detach();
         $pizza -> delete();
 
-        return redirect('pizza.index') -> with('message', 'Pizza excluída com sucesso!');
+        return redirect('pizzas') -> with('message', 'Pizza excluída com sucesso!');
     }
 }
