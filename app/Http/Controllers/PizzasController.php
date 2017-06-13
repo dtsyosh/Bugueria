@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Ingrediente;
 use App\Pizza;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class PizzasController extends Controller
 {
@@ -15,7 +16,7 @@ class PizzasController extends Controller
      */
     public function index()
     {
-        $pizzas = Pizzas::all();
+        $pizzas = Pizza::all();
 
         return view('pizzas.index', compact('pizzas'));
     }
@@ -27,7 +28,8 @@ class PizzasController extends Controller
      */
     public function create()
     {
-        return view('pizzas.create');
+        $ingredientes = Ingrediente::all();
+        return view('pizzas.create', compact('ingredientes'));
     }
 
     /**
@@ -50,7 +52,16 @@ class PizzasController extends Controller
 
         $pizza -> save();
 
-        return redirect('homepage');
+        $ingredientes = Input::get('arrayIngredientes');
+
+        foreach ($ingredientes as $ingrediente)
+        {
+            $pizza -> ingredientes() -> attach($ingrediente, ['qtde_porcoes' => 1]);
+        }
+
+
+
+        return redirect('/');
     }
 
     /**
@@ -94,7 +105,12 @@ class PizzasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pizza = Pizza::find($id);
+
+        $pizza -> nome = $request -> nome;
+        $pizza -> preco = $request -> preco;
+
+
     }
 
     /**
