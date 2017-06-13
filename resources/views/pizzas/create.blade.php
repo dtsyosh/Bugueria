@@ -28,5 +28,6 @@
     </div>
 
     {!! Form::submit('Cadastrar', ['class' => 'btn btn-primary']) !!}
+    <a href="{{ route('pizzas.index') }}" class="btn btn-default">Voltar</a>
     {!! Form::close() !!}
 @endsection

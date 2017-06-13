@@ -61,7 +61,7 @@ class PizzasController extends Controller
 
 
 
-        return redirect('pizza.index');
+        return redirect('pizza');
     }
 
     /**
@@ -77,7 +77,7 @@ class PizzasController extends Controller
         if (! $pizza)
             abort(404);
 
-        return view('pizza.detailpage', compact('pizza'));
+        return view('pizzas.show', compact('pizza'));
     }
 
     /**

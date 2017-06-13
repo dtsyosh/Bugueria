@@ -15,7 +15,7 @@
         <tbody>
         @forelse($pizzas as $pizza)
             <tr>
-                <td>{{ $pizza->nome }}</td>
+                <td><a href="/pizzas/{{$pizza->id}}"> {{ $pizza->nome }} </a></td>
                 <td>{{ $pizza->preco }}</td>
                 <td>
                     <a class="btn btn-primary" href="{{ route('pizzas.edit', $pizza->id) }}">Editar</a>
