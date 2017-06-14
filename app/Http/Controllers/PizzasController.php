@@ -61,7 +61,7 @@ class PizzasController extends Controller
 
 
 
-        return redirect('pizza');
+        return redirect('pizzas');
     }
 
     /**
@@ -84,16 +84,19 @@ class PizzasController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
         $pizza = Pizza::find($id);
+        $todosIngredientes = Ingrediente::all();
+        $ingredientesPizza = $pizza -> ingredientes() -> get();
 
         if (! $pizza)
             abort(404);
 
-        return view('pizza.edit', compact('pizza'));
+        return view('pizzas.edit')
+            ->with(compact('pizza', 'todosIngredientes', 'ingredientesPizza'));
     }
 
     /**
@@ -110,7 +113,13 @@ class PizzasController extends Controller
         $pizza -> nome = $request -> nome;
         $pizza -> preco = $request -> preco;
 
+        $ingredientes = (array) Input::get('arrayIngredientes');
+        $pivo = array_fill(0, count($ingredientes), ['qtde_porcoes' => 1]);
+        $syncData = array_combine($ingredientes, $pivo);
+        $pizza -> ingredientes() -> sync($syncData);
 
+        $pizza -> save();
+        return redirect('pizzas');
     }
 
     /**
