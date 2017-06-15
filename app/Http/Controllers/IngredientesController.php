@@ -47,12 +47,7 @@ class IngredientesController extends Controller
 
         $ingrediente = new Ingrediente;
 
-        $ingrediente -> nome = $request -> nome;
-        $ingrediente -> preco_porcao = $request -> preco_porcao;
-        $ingrediente -> unidade = $request -> unidade;
-        $ingrediente -> qtde_porcao = $request -> qtde_porcao;
-        $ingrediente -> qtde_total = $request -> qtde_total;
-        $ingrediente -> save();
+        $ingrediente -> create($request->all());
 
         return redirect('ingredientes') -> with('message', 'Ingrediente salvo com sucesso!');
     }
