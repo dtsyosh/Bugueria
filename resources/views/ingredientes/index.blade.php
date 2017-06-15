@@ -15,7 +15,7 @@
         <tbody>
             @forelse($ingredientes as $ingrediente)
                 <tr>
-                    <td>{{ $ingrediente->nome }}</td>
+                    <td><a href="/ingredientes/ {{ $ingredientes -> id }}"> {{ $ingrediente->nome }} </a></td>
                     <td>{{ $ingrediente->preco }}</td>
                     @if($ingrediente->disponivel)
                         <td>Disponível</td>
