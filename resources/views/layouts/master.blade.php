@@ -1,29 +1,34 @@
 <html>
-<style>
+    <style>
     body {
-        padding-top: 65px;
+    padding-top: 65px;
     }
-</style>
-
-<head>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href=" {{ asset('css/bootstrap.min.css') }} ">
-
-    <title>@yield('title')</title>
-</head>
-
-<body>
-@include('layouts.navbar')
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1>
-            </h1>
+    </style>
+    <head>
+    
+        <link rel="stylesheet" href=" {{ asset('css/bootstrap.min.css') }} ">
+        <script src="js/app.js"></script>
+        
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
+        <!-- Lightbox JavaScript -->
+        <script src="lightbox/js/lightbox.min.js"></script>
+        
+        <title>@yield('title')</title>
+    </head>
+    <body>
+        @include('layouts.navbar')
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>
+                    </h1>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div class="container">
-    @yield('content')
-</div>
-</body>
+        <div class="container">
+            @yield('content')
+        </div>
+        @include('layouts.foot')
+    </body>
 </html>

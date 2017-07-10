@@ -1,30 +1,71 @@
-<div class="header clearfix">
-    <div class="nav navbar-inverse navbar-static-top navbar-fixed-top" role="navigation">
+<html lang="pt-br">
+
+<head>
+
+    <title>Bugueria</title>
+
+
+
+
+
+     
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="css/modern-business.css" rel="stylesheet">
+
+   
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  
+    <link href="lightbox/css/lightbox.min.css" rel="stylesheet">
+   	
+   
+  
+</head>
+
+<body> 
+    <div class="navbar navbar-inverse navbar-fixed-top" role="banner">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
+           
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index">Gráfica Rápida - Casa das Cópias</a>
+                <a class="navbar-brand" href="/">Bugueria Master</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
+       
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="{{route('ingredientes.create')}}">Empresa</a>
+                        <a href=" ">Empresa</a>
                     </li>
-                    <li>
-                        <a href="galerias/album">Serviços</a>
-                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Serviços<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{url('/cardapio')}}">Cardápio</a>
+                            </li>
+                            
+                            <li>
+                                <a href="{{route('pizzas.create')}}">Monte sua Pizza</a>
+                            </li>
+                            
+                            <li>
+                                <a href="">Sobremesas</a>
+                            </li>
+                           
+                        </ul>
+                    </li>                    
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
+			
+            
         </div>
-        <!-- /.container -->
+    
     </div>
-</div>
+	</body>
+	</html>

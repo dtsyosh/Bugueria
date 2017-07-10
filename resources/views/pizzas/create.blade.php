@@ -1,6 +1,15 @@
 @extends('layouts.master')
 
 @section('content')
+
+
+
+
+
+
+  
+
+
     {!! Form::open(['route' => 'pizzas.store']) !!}
 
     <div class="form-group">
@@ -30,4 +39,11 @@
     {!! Form::submit('Cadastrar', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route('pizzas.index') }}" class="btn btn-default">Voltar</a>
     {!! Form::close() !!}
+	
+	</div>
+        
+
+   
+	
+	
 @endsection
