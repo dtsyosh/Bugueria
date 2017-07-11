@@ -1,15 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-
-
-
-
-
-
-  
-
-
+    {{ Html::script('js/quantidade.js') }}
     {!! Form::open(['route' => 'pizzas.store']) !!}
 
     <div class="form-group">
@@ -28,8 +20,11 @@
             <div class="col-md-4">
                 @foreach($ingredientes as $ingrediente)
                     <ul>
-                            {!! Form::checkbox('arrayIngredientes[]', $ingrediente -> id ) !!}
+
                             {!! Form::label($ingrediente -> nome) !!}
+                            <button name="+" type="button" class="button">+</button>
+                            {!! Form::text('quantidade', '0')!!}
+                            <button name="-" type="button" class="button">-</button>
                     </ul>
                 @endforeach
             </div>
