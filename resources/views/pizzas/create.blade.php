@@ -17,14 +17,11 @@
     <div class="form-group">
         {!! Form::label('ingrediente', 'Ingredientes:') !!}
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 @foreach($ingredientes as $ingrediente)
                     <ul>
-
-                            {!! Form::label($ingrediente -> nome) !!}
-                            <button name="+" type="button" class="button">+</button>
-                            {!! Form::text('quantidade', '0')!!}
-                            <button name="-" type="button" class="button">-</button>
+                        {!! Form::label($ingrediente -> nome) !!}
+                        <input style="float: right; width: 50px" type="number" name="quantidade[]" min="0" max="5" value="0">
                     </ul>
                 @endforeach
             </div>
