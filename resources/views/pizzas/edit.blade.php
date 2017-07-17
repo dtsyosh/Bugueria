@@ -23,12 +23,13 @@
 
                 @foreach($todosIngredientes as $ingrediente)
                     <ul>
-                        @if( $ingredientesPizza -> contains($ingrediente -> id) )
-                            {!! Form::checkbox('arrayIngredientes[]', $ingrediente -> id, true) !!}
-                        @else
-                            {!! Form::checkbox('arrayIngredientes[]', $ingrediente -> id) !!}
-                        @endif
                         {!! Form::label($ingrediente -> nome) !!}
+                        @if( $ingredientesPizza -> contains($ingrediente -> id) )
+                            <input style="float: right; width: 50px" type="number" name="quantidade[]" min="0" max="5" value="{{$pizza->ingredientes -> find($ingrediente->id)->pivot->qtde_porcoes}}">
+                        @else
+                            <input style="float: right; width: 50px" type="number" name="quantidade[]" min="0" max="5" value="0">
+                        @endif
+                        
                     </ul>
                 @endforeach
 
