@@ -116,18 +116,34 @@ class PizzasController extends Controller
         $pizza -> nome = $request -> nome;
         $pizza -> preco = $request -> preco;
 
-        $ingredientes = (array) Input::get('arrayIngredientes');
+
         /*
         $pivo = array_fill(0, count($ingredientes), ['qtde_porcoes' => 1]);
         $syncData = array_combine($ingredientes, $pivo);
         $pizza -> ingredientes() -> sync($syncData);
         */
-        $quantidade = (array) Input::get('quantidade');
-        $pivo = Array('qtde_porcoes' => $quantidade);
-        $syncData = array_combine($ingredientes, $pivo);
-        $pizza -> ingredientes() -> sync($syncData);
+        $qt = (array) Input::get('quantidade');
+        
+        $ingredientes = array();
+        $quantidade = array();
 
-        $pizza -> save();
+        for ($i = 0; $i < count($qt); $i++) {
+            if ($qt[$i] > 0) {
+                array_push($ingredientes, $i + 1);
+                array_push($quantidade, $qt[$i]);
+            }
+        }
+
+        // Percorrer o vetor de quantidade, se a quantidade for > 0, eu adiciono o ingrediente(id) na
+        // variavel $ingredientes
+        $syncData = array();
+        for($i = 0; $i < count($quantidade); $i++) {
+            $syncData[$i] = array('qtde_porcoes' => $quantidade[$i]);
+        }
+        $syncData = array_combine($ingredientes, $syncData);
+        //dd($ingredientes, $quantidade, $syncData);
+        $pizza -> ingredientes() -> sync($syncData);
+        //$pizza -> save();
         return redirect('pizzas');
     }
 
