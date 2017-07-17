@@ -52,11 +52,14 @@ class PizzasController extends Controller
 
         $pizza -> save();
 
-        $ingredientes = Input::get('arrayIngredientes');
+        $ingredientes = Ingrediente::all();
+        $quantidade = Input::get('quantidade');
 
-        foreach ($ingredientes as $ingrediente)
+        for ($i = 0; $i < count($quantidade); $i++)
         {
-            $pizza -> ingredientes() -> attach($ingrediente, ['qtde_porcoes' => 1]);
+            if ($quantidade[$i] != 0) {
+                $pizza -> ingredientes() -> attach($ingredientes[$i], ['qtde_porcoes' => $quantidade[$i]]);
+            }
         }
 
 
@@ -114,7 +117,13 @@ class PizzasController extends Controller
         $pizza -> preco = $request -> preco;
 
         $ingredientes = (array) Input::get('arrayIngredientes');
+        /*
         $pivo = array_fill(0, count($ingredientes), ['qtde_porcoes' => 1]);
+        $syncData = array_combine($ingredientes, $pivo);
+        $pizza -> ingredientes() -> sync($syncData);
+        */
+        $quantidade = (array) Input::get('quantidade');
+        $pivo = Array('qtde_porcoes' => $quantidade);
         $syncData = array_combine($ingredientes, $pivo);
         $pizza -> ingredientes() -> sync($syncData);
 
