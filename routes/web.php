@@ -27,4 +27,4 @@ Route::group(['middleware' => ['web']], function () {
 
 
 Route::get('/cardapio', 'PizzasController@cardapio');
-Route::get('/monte-sua-pizza', 'PizzasController@create');
+Route::get('/monte-sua-pizza', 'PizzasController@monte_sua_pizza');

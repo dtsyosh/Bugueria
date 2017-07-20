@@ -127,6 +127,10 @@ class PizzasController extends Controller
         $ingredientes = array();
         $quantidade = array();
 
+        /*
+         Percorrer o vetor de quantidade, se a quantidade for > 0, eu adiciono o ingrediente(id) na
+         variavel $ingredientes
+        */
         for ($i = 0; $i < count($qt); $i++) {
             if ($qt[$i] > 0) {
                 array_push($ingredientes, $i + 1);
@@ -134,16 +138,15 @@ class PizzasController extends Controller
             }
         }
 
-        // Percorrer o vetor de quantidade, se a quantidade for > 0, eu adiciono o ingrediente(id) na
-        // variavel $ingredientes
+
         $syncData = array();
         for($i = 0; $i < count($quantidade); $i++) {
             $syncData[$i] = array('qtde_porcoes' => $quantidade[$i]);
         }
         $syncData = array_combine($ingredientes, $syncData);
-        //dd($ingredientes, $quantidade, $syncData);
+
         $pizza -> ingredientes() -> sync($syncData);
-        //$pizza -> save();
+
         return redirect('pizzas');
     }
 
@@ -161,5 +164,11 @@ class PizzasController extends Controller
         $pizza -> delete();
 
         return redirect('pizzas') -> with('message', 'Pizza excluída com sucesso!');
+    }
+
+    public function monte_sua_pizza()
+    {
+        $ingredientes = Ingrediente::all();
+        return view('pizzas.monte-sua-pizza', compact('ingredientes'));
     }
 }
