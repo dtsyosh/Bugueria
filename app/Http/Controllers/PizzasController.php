@@ -123,7 +123,7 @@ class PizzasController extends Controller
         $pizza -> ingredientes() -> sync($syncData);
         */
         $qt = (array) Input::get('quantidade');
-        
+
         $ingredientes = array();
         $quantidade = array();
 
@@ -170,5 +170,11 @@ class PizzasController extends Controller
     {
         $ingredientes = Ingrediente::all();
         return view('pizzas.monte-sua-pizza', compact('ingredientes'));
+    }
+
+    public function cardapio()
+    {
+      $cardapio = Pizza::all();
+      return view('pizzas.cardapio', compact('cardapio'));
     }
 }
