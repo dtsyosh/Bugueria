@@ -7,7 +7,7 @@
 		var vetor_ingredientes = <?php echo json_encode($ingredientes); ?>;
 
 		$(function() {
-			$("input[name='quantidade[]']").click(function() {
+			$("input[name='quantidade[]']").on('click keyup keydown',function() {
 				atualizar();
 			});
 		});
@@ -40,7 +40,7 @@
 
 		<div class="col-md-3">
 			<label>Preço: </label>
-			<input id="preco" type="float" disabled="True" value="0">
+			<input id="preco" type="float" value="0" disabled="True">
 		</div>
 	</div>
 @endsection
