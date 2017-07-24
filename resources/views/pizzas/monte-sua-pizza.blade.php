@@ -1,6 +1,29 @@
 @extends('layouts.master')
 
 @section('content')
+
+	<script type="text/javascript">
+		var vetor_quantidades = Array();
+		var vetor_ingredientes = <?php echo json_encode($ingredientes); ?>;
+
+		$(function() {
+			$("input[name='quantidade[]']").click(function() {
+				atualizar();
+			});
+		});
+
+		function atualizar() {
+			vetor_quantidades = [];
+			$("input[name='quantidade[]']").each(function() {
+				vetor_quantidades.push($(this).val());
+			});
+			var x = 0;
+			for(i = 0; i < vetor_quantidades.length; i++) {
+				x += vetor_quantidades[i] * vetor_ingredientes[i]['preco_porcao'];
+			}
+			document.getElementById('preco').value = x;
+		}
+	</script>
 	<h1>Monte sua pizza!</h1>
 
 	<div class="row">
@@ -8,8 +31,9 @@
 			<label> Ingredientes </label>
 			<br>
 			@foreach($ingredientes as $ingrediente)
-				<ul>{{ $ingrediente->nome }}
-					<input style="width: 50px; float: right" align="left" type="number" name="quantidade[]" min="0" max="5" value="0">
+				<ul>
+					<label name="nome_ingrediente[]">{{ $ingrediente->nome }}</label>
+					<input class="quantitade" style="width: 50px; float: right" align="left" type="number" name="quantidade[]" min="0" max="5" value="0">
 				</ul>
 			@endforeach
 		</div>
