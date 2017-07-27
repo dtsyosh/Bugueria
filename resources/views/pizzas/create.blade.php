@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-    {{ Html::script('js/quantidade.js') }}
     {!! Form::open(['route' => 'pizzas.store']) !!}
 
     <div class="form-group">
@@ -28,14 +27,18 @@
         </div>
     </div>
 
+    <div class="form-group">
+      <input type="checkbox" name="cardapio">
+      <label>Cardapio?</label>
+    </div>
     {!! Form::submit('Cadastrar', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route('pizzas.index') }}" class="btn btn-default">Voltar</a>
     {!! Form::close() !!}
-	
-	</div>
-        
 
-   
-	
-	
+	</div>
+
+
+
+
+
 @endsection

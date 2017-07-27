@@ -14,28 +14,30 @@
     @endif
     <tbody>
         @forelse($cardapio as $pizza)
-        <tr>
-            <td><a href="/pizzas/{{$pizza->id}}"> {{ $pizza->nome }} </a></td>
-            <td>{{ $pizza->preco }}</td>
-            <td>
-                <button
-                class="btn btn-primary"
-                href="{{ route('pizzas.edit', $pizza->id) }}"
-                data-toggle="modal"
-                data-target="#verIngredientes">Ver Ingredientes</button>
-            </td>
-            <div class="modal fade" id="verIngredientes" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            @foreach($cardapio as $pizza)
-                                <li>$pizza->nome</li>
-                            @endforeach
+          @if ($pizza->cardapio)
+            <tr>
+                <td><a href="/pizzas/{{$pizza->id}}"> {{ $pizza->nome }} </a></td>
+                <td>{{ $pizza->preco }}</td>
+                <td>
+                    <button
+                    class="btn btn-primary"
+                    href="{{ route('pizzas.edit', $pizza->id) }}"
+                    data-toggle="modal"
+                    data-target="#verIngredientes">Ver Ingredientes</button>
+                </td>
+                <div class="modal fade" id="verIngredientes" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                @foreach($cardapio as $pizza)
+                                    <li>$pizza->nome</li>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </tr>
+            </tr>
+          @endif
         @empty
         <p>Nenhuma pizza cadastrada!</p>
         @endforelse

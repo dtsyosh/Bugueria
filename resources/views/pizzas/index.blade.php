@@ -1,14 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-
-
-
-
-   
-   
-   
-   <h1>Cardápio</h1>
+   <h1>Todas as pizzas</h1>
     <a class="btn btn-primary" href="{{ route('pizzas.create') }}">Cadastrar Pizza</a>
     <hr>
     <table class="table">
@@ -37,17 +30,17 @@
         @endforelse
         </tbody>
     </table>
-   
-   
-   
-   
-   
 
 
-     
-	 
-	 
-	
+
+
+
+
+
+
+
+
+
 
 
 @stop
