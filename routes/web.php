@@ -13,15 +13,19 @@
 
 use Illuminate\Support\Facades\Route;
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('home');
 });
 
-Route::group(['middleware' => ['web']], function () {
+
+
+Route::group(['middleware' => ['auth']], function () {
     Route::resource('ingredientes', 'IngredientesController');
 });
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::resource('pizzas', 'PizzasController');
 });
 
