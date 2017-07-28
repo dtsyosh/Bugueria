@@ -12,4 +12,10 @@ class Pizza extends Model
             ->withPivot('qtde_porcoes')
             ->withTimestamps();
     }
+
+    public function pedidos()
+    {
+      return $this->belongsToMany(Pedido::class)
+        ->withTimestamps();
+    }
 }
