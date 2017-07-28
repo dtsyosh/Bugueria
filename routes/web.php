@@ -13,18 +13,22 @@
 
 use Illuminate\Support\Facades\Route;
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('home');
 });
 
-Route::group(['middleware' => ['web']], function () {
+
+
+Route::group(['middleware' => ['auth']], function () {
     Route::resource('ingredientes', 'IngredientesController');
 });
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::resource('pizzas', 'PizzasController');
 });
 
-
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/cardapio', 'PizzasController@cardapio');
 Route::get('/monte-sua-pizza', 'PizzasController@monte_sua_pizza');
