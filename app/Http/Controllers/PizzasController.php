@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Carrinho;
 use App\Ingrediente;
 use App\Pizza;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 
 class PizzasController extends Controller
 {
@@ -169,6 +171,7 @@ class PizzasController extends Controller
     public function monte_sua_pizza()
     {
         $ingredientes = Ingrediente::all();
+
         return view('pizzas.monte-sua-pizza', compact('ingredientes'));
     }
 
@@ -176,5 +179,17 @@ class PizzasController extends Controller
     {
       $cardapio = Pizza::all();
       return view('pizzas.cardapio', compact('cardapio'));
+    }
+
+    public function getAddCarrinho(Request $request, $id) {
+        $pizza = Pizza::find($id);
+        $oldCarrinho = Session::has('carrinho') ? Session::get('carrinho') : null;
+
+        $carrinho = new Carrinho($oldCarrinho);
+        $carrinho -> adicionarPizza($pizza, $id);
+
+        $request -> session() -> put('carrinho', $carrinho);
+
+        return redirect('/cardapio');
     }
 }
