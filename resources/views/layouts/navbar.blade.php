@@ -41,7 +41,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href=" ">Empresa</a>
+                        <a href=" ">
+                            Carrinho
+                            <span class="badge">{{ Session::has('carrinho') ? Session::get('carrinho') -> qtItens : '' }}</span>
+                        </a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Serviços<b class="caret"></b></a>
