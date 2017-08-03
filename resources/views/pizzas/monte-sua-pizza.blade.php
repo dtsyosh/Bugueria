@@ -42,7 +42,7 @@
 
 			<div class="col-md-3">
 				<label>Preço: </label>
-				{!! Form::text('preco', 0, ['class' => 'form-control']) !!}
+				<input name="preco" class="form-group" id="preco" value="0">
 			</div>
 
 

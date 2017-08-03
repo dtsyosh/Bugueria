@@ -30,6 +30,6 @@ class Carrinho
     {
         //$key = array_search($pizza, $this->pizzas);
         unset($this->pizzas[$key]);
-        $this->quantidade_itens--;
+        $this->quantidade_itens > 0 ? $this->quantidade_itens-- : 0;
     }
 }

@@ -219,7 +219,7 @@ class PizzasController extends Controller
 
         $request->session()->put('carrinho', $carrinho);
 
-        return redirect('/');
+        return redirect('/carrinho');
     }
 
     public function getCarrinho()
