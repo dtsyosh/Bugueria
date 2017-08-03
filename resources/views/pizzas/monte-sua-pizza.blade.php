@@ -26,21 +26,27 @@
 	</script>
 	<h1>Monte sua pizza!</h1>
 
-	<div class="row">
-		<div class="col-md-3">
-			<label> Ingredientes </label>
-			<br>
-			@foreach($ingredientes as $ingrediente)
-				<ul>
-					<label name="nome_ingrediente[]">{{ $ingrediente->nome }}</label>
-					<input class="quantitade" style="width: 50px; float: right" align="left" type="number" name="quantidade[]" min="0" max="5" value="0">
-				</ul>
-			@endforeach
-		</div>
+	{!! Form::open(['action' => 'PizzasController@getAddCarrinhoP']) !!}
 
-		<div class="col-md-3">
-			<label>Preço: </label>
-			<input id="preco" type="float" value="0" disabled="True">
+		<div class="row">
+			<div class="col-md-3">
+				<label> Ingredientes </label>
+				<br>
+				@foreach($ingredientes as $ingrediente)
+					<ul>
+						<label name="nome_ingrediente[]">{{ $ingrediente->nome }}</label>
+						<input name="quantidade[]" style="width: 50px; float: right" type="number" min="0" max="5" value="0">
+					</ul>
+				@endforeach
+			</div>
+
+			<div class="col-md-3">
+				<label>Preço: </label>
+				{!! Form::text('preco', 0, ['class' => 'form-control']) !!}
+			</div>
+
+
 		</div>
-	</div>
+		{!! Form::submit('Adicionar ao carrinho', ['class' => 'btn btn-primary']) !!}
+	{!! Form::close() !!}
 @endsection
