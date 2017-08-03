@@ -37,33 +37,33 @@ class PizzasController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'nome' => 'required',
-            'preco' => 'required'
-        ]);
         $pizza = new Pizza;
 
-        $pizza -> cardapio = $request -> has('cardapio');
-        $pizza -> nome = $request -> nome;
-        $pizza -> preco = $request -> preco;
+        // Pizza foi criada pela tela 'monte-sua-pizza'
+        if (!$request->has('nome')) {
+            $pizza->nome = "Pizza personalizada";
+            $pizza->cardapio = false;
+        } else {
+            $pizza->nome = $request->nome;
+            $pizza->cardapio = $request->has('cardapio');
+        }
 
-        $pizza -> save();
+        $pizza->preco = $request->preco;
+        $pizza->save();
 
         $ingredientes = Ingrediente::all();
         $quantidade = Input::get('quantidade');
 
-        for ($i = 0; $i < count($quantidade); $i++)
-        {
+        for ($i = 0; $i < count($quantidade); $i++) {
             if ($quantidade[$i] != 0) {
-                $pizza -> ingredientes() -> attach($ingredientes[$i], ['qtde_porcoes' => $quantidade[$i]]);
+                $pizza->ingredientes()->attach($ingredientes[$i], ['qtde_porcoes' => $quantidade[$i]]);
             }
         }
-
 
 
         return redirect('pizzas');
@@ -72,14 +72,14 @@ class PizzasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $pizza = Pizza::find($id);
 
-        if (! $pizza)
+        if (!$pizza)
             abort(404);
 
         return view('pizzas.show', compact('pizza'));
@@ -88,16 +88,16 @@ class PizzasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
         $pizza = Pizza::find($id);
         $todosIngredientes = Ingrediente::all();
-        $ingredientesPizza = $pizza -> ingredientes() -> get();
+        $ingredientesPizza = $pizza->ingredientes()->get();
 
-        if (! $pizza)
+        if (!$pizza)
             abort(404);
 
         return view('pizzas.edit')
@@ -107,16 +107,16 @@ class PizzasController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $pizza = Pizza::find($id);
 
-        $pizza -> nome = $request -> nome;
-        $pizza -> preco = $request -> preco;
+        $pizza->nome = $request->nome;
+        $pizza->preco = $request->preco;
 
 
         /*
@@ -124,7 +124,7 @@ class PizzasController extends Controller
         $syncData = array_combine($ingredientes, $pivo);
         $pizza -> ingredientes() -> sync($syncData);
         */
-        $qt = (array) Input::get('quantidade');
+        $qt = (array)Input::get('quantidade');
 
         $ingredientes = array();
         $quantidade = array();
@@ -142,12 +142,12 @@ class PizzasController extends Controller
 
 
         $syncData = array();
-        for($i = 0; $i < count($quantidade); $i++) {
+        for ($i = 0; $i < count($quantidade); $i++) {
             $syncData[$i] = array('qtde_porcoes' => $quantidade[$i]);
         }
         $syncData = array_combine($ingredientes, $syncData);
 
-        $pizza -> ingredientes() -> sync($syncData);
+        $pizza->ingredientes()->sync($syncData);
 
         return redirect('pizzas');
     }
@@ -155,17 +155,17 @@ class PizzasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $pizza = Pizza::find($id);
 
-        $pizza -> ingredientes() -> detach();
-        $pizza -> delete();
+        $pizza->ingredientes()->detach();
+        $pizza->delete();
 
-        return redirect('pizzas') -> with('message', 'Pizza excluída com sucesso!');
+        return redirect('pizzas')->with('message', 'Pizza excluída com sucesso!');
     }
 
     public function monte_sua_pizza()
@@ -177,26 +177,28 @@ class PizzasController extends Controller
 
     public function cardapio()
     {
-      $cardapio = Pizza::all();
-      return view('pizzas.cardapio', compact('cardapio'));
+        $cardapio = Pizza::all();
+        return view('pizzas.cardapio', compact('cardapio'));
     }
 
-    public function getAddCarrinho(Request $request, $id) {
+    public function getAddCarrinho(Request $request, $id)
+    {
         $pizza = Pizza::find($id);
         $oldCarrinho = Session::has('carrinho') ? Session::get('carrinho') : null;
 
         $carrinho = new Carrinho($oldCarrinho);
-        $carrinho -> adicionarPizza($pizza, $id);
+        $carrinho->adicionarPizza($pizza, $id);
 
-        $request -> session() -> put('carrinho', $carrinho);
+        $request->session()->put('carrinho', $carrinho);
 
         return redirect('/cardapio');
     }
 
-    public function getCarrinho() {
+    public function getCarrinho()
+    {
 
         // Caso não haja nenhuma sessão aberta
-        if(!Session::has('carrinho'))
+        if (!Session::has('carrinho'))
             return view('carrinho.index', ['items' => null]);
 
         // Caso haja
