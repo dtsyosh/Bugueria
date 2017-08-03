@@ -3,7 +3,7 @@
 @section('content')
     <h1>Carrinho</h1>
 
-    @if(Session::has('carrinho'))
+    @if(Session::has('carrinho') and Session::get('carrinho')->quantidade_itens > 0)
         <div class="row">
             <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
                 <ul class="list-group">
@@ -17,7 +17,13 @@
                         </li>
                     @endforeach
                 </ul>
+
+                <div class="panel">
+                    Total: {{ $carrinho->valor_total }}
+                </div>
             </div>
+
+            <div></div>
         </div>
         @else
         <strong>Insira algo no carrinho!</strong>

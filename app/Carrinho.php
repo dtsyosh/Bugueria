@@ -23,13 +23,15 @@ class Carrinho
         array_push($this->pizzas, $pizza);
         $this->valor_total += $pizza->preco;
         $this->quantidade_itens++;
+
     }
 
 
     public function remover($key)
     {
         //$key = array_search($pizza, $this->pizzas);
-        unset($this->pizzas[$key]);
+        $this->valor_total -= $this->pizzas[$key]->preco;
         $this->quantidade_itens > 0 ? $this->quantidade_itens-- : 0;
+        unset($this->pizzas[$key]);
     }
 }
