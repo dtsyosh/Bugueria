@@ -19,7 +19,7 @@
                 <td><a href="/pizzas/{{$pizza->id}}"> {{ $pizza->nome }} </a></td>
                 <td>{{ $pizza->preco }}</td>
                 <td>
-                    <a href="/adicionar-carrinho/{{  $pizza->id }}">Adicionar</a>
+                    <a href="/adicionar-carrinho/{{ $pizza->id }}">Adicionar</a>
                 </td>
 
             </tr>

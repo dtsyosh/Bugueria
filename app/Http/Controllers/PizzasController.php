@@ -44,16 +44,11 @@ class PizzasController extends Controller
     {
         $pizza = new Pizza;
 
-        // Pizza foi criada pela tela 'monte-sua-pizza'
-        if (!$request->has('nome')) {
-            $pizza->nome = "Pizza personalizada";
-            $pizza->cardapio = false;
-        } else {
-            $pizza->nome = $request->nome;
-            $pizza->cardapio = $request->has('cardapio');
-        }
 
+        $pizza->nome = $request->nome;
+        $pizza->cardapio = $request->has('cardapio');
         $pizza->preco = $request->preco;
+
         $pizza->save();
 
         $ingredientes = Ingrediente::all();
@@ -181,17 +176,50 @@ class PizzasController extends Controller
         return view('pizzas.cardapio', compact('cardapio'));
     }
 
-    public function getAddCarrinho(Request $request, $id)
+    public function getAddCarrinhoP(Request $request)
     {
-        $pizza = Pizza::find($id);
+        $pizza = new Pizza;
+
+        $pizza->nome = "Pizza personalizada";
+
+        $pizza->preco = $request->preco;
+        $pizza->cardapio = $request->has('cardapio');
+
+
         $oldCarrinho = Session::has('carrinho') ? Session::get('carrinho') : null;
 
         $carrinho = new Carrinho($oldCarrinho);
-        $carrinho->adicionarPizza($pizza, $id);
+        $carrinho->adicionar($pizza);
 
         $request->session()->put('carrinho', $carrinho);
 
         return redirect('/cardapio');
+    }
+
+    public function getAddCarrinho(Request $request, $id)
+    {
+        $pizza = Pizza::find($id);
+
+        $oldCarrinho = Session::has('carrinho') ? Session::get('carrinho') : null;
+
+        $carrinho = new Carrinho($oldCarrinho);
+        $carrinho->adicionar($pizza);
+
+        $request->session()->put('carrinho', $carrinho);
+
+        return redirect('/cardapio');
+    }
+
+    public function getRemoveCarrinho(Request $request, $id)
+    {
+        $oldCarrinho = Session::has('carrinho') ? Session::get('carrinho') : null;
+
+        $carrinho = new Carrinho($oldCarrinho);
+        $carrinho->remover($id);
+
+        $request->session()->put('carrinho', $carrinho);
+
+        return redirect('/');
     }
 
     public function getCarrinho()
@@ -199,7 +227,7 @@ class PizzasController extends Controller
 
         // Caso não haja nenhuma sessão aberta
         if (!Session::has('carrinho'))
-            return view('carrinho.index', ['items' => null]);
+            return view('carrinho.index', ['carrinho' => null]);
 
         // Caso haja
 

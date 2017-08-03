@@ -7,11 +7,11 @@
         <div class="row">
             <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
                 <ul class="list-group">
-                    @foreach($carrinho->pizzas as $pizza)
+                    @foreach($carrinho->pizzas as $i => $pizza)
                         <li class="list-group-item">
-                            <button class="btn btn-default">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
+                            <a class="btn btn-default" href="/remover-carrinho/{{ $i }}">
+                                X
+                            </a>
                             <strong>{{ $pizza -> nome }}</strong>
                             <span class="label label-success" style="float:right">{{ $pizza -> preco }}</span>
                         </li>
