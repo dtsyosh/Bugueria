@@ -192,4 +192,18 @@ class PizzasController extends Controller
 
         return redirect('/cardapio');
     }
+
+    public function getCarrinho() {
+
+        // Caso não haja nenhuma sessão aberta
+        if(!Session::has('carrinho'))
+            return view('carrinho.index', ['items' => null]);
+
+        // Caso haja
+
+        $carrinhoAntigo = Session::get('carrinho');
+        $carrinho = new Carrinho($carrinhoAntigo);
+
+        return view('carrinho.index', compact('carrinho'));
+    }
 }
