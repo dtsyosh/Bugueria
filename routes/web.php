@@ -29,7 +29,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('pizzas', 'PizzasController');
 });
 
+
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/cardapio', 'PizzasController@cardapio');
 Route::get('/monte-sua-pizza', 'PizzasController@monte_sua_pizza');
 Route::get('/adicionar-carrinho/{id}', 'PizzasController@getAddCarrinho');
+Route::get('/carrinho', 'PizzasController@getCarrinho');
