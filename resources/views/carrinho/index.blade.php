@@ -18,12 +18,14 @@
                     @endforeach
                 </ul>
 
-                <div class="panel">
-                    Total: {{ $carrinho->valor_total }}
+                <div class="panel" style="float:right">
+                    <div class="panel-body">
+                        <h3>Total: R${{ $carrinho->valor_total }}</h3>
+                        <a class="btn btn-default" href="/finalizar-compra">Finalizar Compra</a>
+                    </div>
                 </div>
             </div>
 
-            <div></div>
         </div>
         @else
         <strong>Insira algo no carrinho!</strong>

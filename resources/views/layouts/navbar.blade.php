@@ -60,7 +60,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/login">Área ADM</a>
+                    <a href="/admin">Área ADM</a>
                 </li>
                 @if(Auth::check())
                     <li><a href="/logout">Sair</a></li>

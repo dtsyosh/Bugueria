@@ -42,7 +42,7 @@
 
 			<div class="col-md-3">
 				<label>Preço: </label>
-				<input name="preco" class="form-group" id="preco" value="0">
+				<input name="preco" id="preco" value="0">
 			</div>
 
 
